@@ -7,5 +7,5 @@ import { AuthController } from "../controllers/auth-controller"
 export const protectedRouter = express.Router()
 protectedRouter.use(authMiddleware)
 
-protectedRouter.delete("/api/logout", AuthController.logout)
+protectedRouter.put("/api/logout", AuthController.logout)
 
