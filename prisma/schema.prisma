@@ -47,3 +47,10 @@ model Lesson {
   @@map("lessons")
 }
 
+model Location {
+  id          Int      @id @default(autoincrement())
+  nama        String   @db.VarChar(255)
+  isFilled    Boolean  @db.Boolean
+
+  @@map("locations")
+}
