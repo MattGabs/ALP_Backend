@@ -2,7 +2,6 @@ import { prismaClient } from "../application/database";
 import { ResponseError } from "../errors/response-error";
 import { CreateReportRequest, ReportResponse, toReportResponse } from "../models/report-model";
 import path from "path";
-import * as multer from 'multer';
 
 export class ReportService {
   /**

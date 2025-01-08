@@ -36,3 +36,14 @@ model Report {
 
   @@map("reports")
 }
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.VarChar(1000)
+  content     String   @db.Text
+  imageUri    String?  @db.VarChar(255)
+
+  @@map("lessons")
+}
+
