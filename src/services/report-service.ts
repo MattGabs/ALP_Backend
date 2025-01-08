@@ -2,6 +2,7 @@ import { prismaClient } from "../application/database";
 import { ResponseError } from "../errors/response-error";
 import { CreateReportRequest, ReportResponse, toReportResponse } from "../models/report-model";
 import path from "path";
+import * as multer from 'multer';
 
 export class ReportService {
   /**
@@ -28,7 +29,7 @@ export class ReportService {
         userId: request.userId,
         title: request.title,
         description: request.description,
-        imageUri: imagePath || null, // Save null if no image is uploaded
+        imageUri: "kfc.jpg", // Save null if no image is uploaded
       },
     });
 

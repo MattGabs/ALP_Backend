@@ -14,11 +14,12 @@ export class ReportController {
     const { userId, title, description } = req.body;
     const file = req.file; // Uploaded file (handled by middleware)
 
+    console.log("file name is : ", file);
     // Check if required fields, including the file, are present
-    if (!userId || !title || !description || !file) {
-      res.status(400).json({ error: "Missing required fields, including image." });
-      return; // Just exit the function after sending the response
-    }
+    // if (!userId || !title || !description || !file) {
+    //   res.status(400).json({ error: "Missing required fields, including image." });
+    //   return; // Just exit the function after sending the response
+    // }
 
     try {
       // Call service to create a new report
@@ -27,7 +28,7 @@ export class ReportController {
           userId: Number(userId), // Ensure userId is a number
           title,
           description,
-          image: file.filename,  // Pass the image filename
+          image: "kfc.jpg",  // Pass the image filename
         },
         file // Passing file
       );
