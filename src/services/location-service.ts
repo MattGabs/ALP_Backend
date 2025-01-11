@@ -18,6 +18,26 @@ export class LocationService {
         return toLocationResponse(location);
     }
 
+    static async createLocationsBatch(requests: CreateLocationRequest[]): Promise<LocationResponse[]> {
+        if (requests.length === 0) {
+            throw new ResponseError(400, "At least one location is required.");
+        }
+
+        // Validate each location in the batch
+        requests.forEach(req => {
+            if (!req.nama || req.isFilled === undefined) {
+                throw new ResponseError(400, "All fields are required for each location.");
+            }
+        });
+
+        const locations = await prismaClient.location.createMany({
+            data: requests,
+        });
+
+        // Returning the newly created locations
+        return requests.map(toLocationResponse);
+    }
+
     static async getAllLocations(): Promise<LocationResponse[]> {
         const locations = await prismaClient.location.findMany({
             orderBy: { id: "desc" }, 
