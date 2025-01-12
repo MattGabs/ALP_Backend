@@ -22,6 +22,8 @@ protectedRouter.get("/api/lessons", LessonController.getAllLessons);
 
 protectedRouter.post("/api/locations", LocationController.createLocation);
 
+protectedRouter.post("/api/locations/batch", LocationController.createLocationsBatch);
+
 protectedRouter.get("/api/locations", LocationController.getAllLocations);
 
 protectedRouter.put("/api/locations/:locationId", LocationController.updateLocation);

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { LocationService } from "../services/location-service";
+import { CreateLocationRequest } from "../models/location-model";
 
 export class LocationController {
     static async createLocation(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -15,6 +16,17 @@ export class LocationController {
             res.status(201).json(location);
         } catch (error) {
             next(error)
+        }
+    }
+
+    static async createLocationsBatch(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const locationsData: CreateLocationRequest[] = req.body;
+
+        try {
+            const locations = await LocationService.createLocationsBatch(locationsData);
+            res.status(201).json(locations);
+        } catch (error) {
+            next(error);
         }
     }
 
