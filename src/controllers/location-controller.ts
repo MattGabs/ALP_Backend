@@ -85,4 +85,21 @@ export class LocationController {
             next(error)
         }
     }
+
+    static async getIdByLocation(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const { nama } = req.body; 
+    
+        try {
+            if (!nama || typeof nama !== "string") {
+                res.status(400).json({ error: "Nama is required and should be a string" });
+                return; 
+            }
+    
+            const locationDetails = await LocationService.getIdByLocation(nama);
+
+            res.status(200).json(locationDetails); 
+        } catch (error) {
+            next(error);
+        }
+    }
 }

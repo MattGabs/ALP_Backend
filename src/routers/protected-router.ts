@@ -27,3 +27,5 @@ protectedRouter.post("/api/locations/batch", LocationController.createLocationsB
 protectedRouter.get("/api/locations", LocationController.getAllLocations);
 
 protectedRouter.put("/api/locations/:locationId", LocationController.updateLocation);
+
+protectedRouter.get("/api/locations/ids", LocationController.getIdByLocation);

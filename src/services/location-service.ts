@@ -89,4 +89,17 @@ export class LocationService {
 
         return true;
     }
+
+    static async getIdByLocation(nama: string): Promise<LocationResponse[]> {
+        if (!nama) {
+            throw new ResponseError(400, "Nama is required.");
+        }
+    
+        const locations = await prismaClient.location.findMany({
+            where: { nama },
+            select: { id: true, nama: true, isFilled: true }, 
+        });
+    
+        return locations.map(toLocationResponse);
+    }
 }
