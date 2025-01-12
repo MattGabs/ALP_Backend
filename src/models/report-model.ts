@@ -21,7 +21,7 @@ export interface CreateReportRequest {
       userId: report.userId,
       title: report.title,
       description: report.description,
-      image: report.image || null,
+      image: report.image || "",
     };
   };
   

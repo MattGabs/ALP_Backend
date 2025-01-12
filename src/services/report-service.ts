@@ -2,7 +2,9 @@ import { prismaClient } from "../application/database";
 import { ResponseError } from "../errors/response-error";
 import { CreateReportRequest, ReportResponse, toReportResponse } from "../models/report-model";
 import path from "path";
-
+import { User } from "@prisma/client";
+import { Validation } from "../validations/validation";
+import { ReportValidation } from "../validations/report-validation";
 export class ReportService {
   /**
    * Creates a new report.
@@ -10,30 +12,51 @@ export class ReportService {
    * @param file - The uploaded image file (optional).
    * @returns The created report as a standardized response.
    */
-  static async createReport(request: CreateReportRequest, file?: Express.Multer.File): Promise<ReportResponse> {
-    // Validate that required fields are provided
-    if (!request.userId || !request.title || !request.description) {
-      throw new ResponseError(400, "All fields except image are required.");
-    }
+  // static async createReport(request: CreateReportRequest): Promise<ReportResponse> {
+  //   // Validate that required fields are provided
+  //   if (!request.userId || !request.title || !request.description) {
+  //     throw new ResponseError(400, "All fields except image are required.");
+  //   }
 
-    // Handle the image file if provided
-    let imagePath: string | undefined;
-    if (file) {
-      imagePath = path.join("uploads", file.filename); // Path to save image
-    }
+  //   // // Handle the image file if provided
+  //   // let imagePath: string | undefined;
+  //   // if (file) {
+  //   //   imagePath = path.join("uploads", file.filename); // Path to save image
+  //   // }
 
-    // Create the report in the database
-    const report = await prismaClient.report.create({
+  //   // Create the report in the database
+  //   const report = await prismaClient.report.create({
+  //     data: {
+  //       userId: request.userId,
+  //       title: request.title,
+  //       description: request.description,
+  //       imageUri: "kfc.jpg"
+  //     },
+  //   });
+
+  //   return toReportResponse(report); 
+  // }
+
+  static async createReport(
+    user: User,
+    req: CreateReportRequest): Promise<string> {
+
+    const reportRequest = Validation.validate(
+        ReportValidation.CREATE,
+        req
+    );
+
+    await prismaClient.report.create({
       data: {
-        userId: request.userId,
-        title: request.title,
-        description: request.description,
-        imageUri: "kfc.jpg", // Save null if no image is uploaded
-      },
+              userId: reportRequest.userId,
+              title: reportRequest.title,
+              description: reportRequest.description,
+              imageUri: reportRequest.image,
+            },
     });
 
-    return toReportResponse(report); // Standardize the response
-  }
+    return "Post created successfully";
+}
 
   /**
    * Fetches all reports for a specific user.
@@ -44,7 +67,7 @@ export class ReportService {
 
 static async getAllReports(): Promise<ReportResponse[]> {
   const reports = await prismaClient.report.findMany({
-    orderBy: { id: "desc" }, // You can customize the order as needed
+    orderBy: { id: "desc" }, 
   });
 
   return reports.map(toReportResponse);

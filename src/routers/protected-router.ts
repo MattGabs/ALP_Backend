@@ -12,9 +12,9 @@ protectedRouter.use(authMiddleware)
 
 protectedRouter.put("/api/logout", AuthController.logout)
 
-protectedRouter.post("/api/reports", ReportController.createReport)
+protectedRouter.post("/api/reports", ReportController.createReport);
 
-protectedRouter.get("/api/reports/", ReportController.getAllReports);
+protectedRouter.get("/api/reports", ReportController.getAllReports);
 
 protectedRouter.post("/api/lessons", LessonController.createLesson);
 
