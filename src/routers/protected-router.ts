@@ -16,9 +16,13 @@ protectedRouter.post("/api/reports", ReportController.createReport);
 
 protectedRouter.get("/api/reports", ReportController.getAllReports);
 
+// Lesson routes
 protectedRouter.post("/api/lessons", LessonController.createLesson);
-
 protectedRouter.get("/api/lessons", LessonController.getAllLessons);
+protectedRouter.get("/api/lessons/:lessonId", LessonController.getLessonById);
+protectedRouter.put("/api/lessons/:lessonId", LessonController.updateLesson); // Update lesson route
+protectedRouter.delete("/api/lessons/:lessonId", LessonController.deleteLesson); // Delete lesson route
+
 
 protectedRouter.post("/api/locations", LocationController.createLocation);
 
