@@ -12,31 +12,6 @@ export class ReportService {
    * @param file - The uploaded image file (optional).
    * @returns The created report as a standardized response.
    */
-  // static async createReport(request: CreateReportRequest): Promise<ReportResponse> {
-  //   // Validate that required fields are provided
-  //   if (!request.userId || !request.title || !request.description) {
-  //     throw new ResponseError(400, "All fields except image are required.");
-  //   }
-
-  //   // // Handle the image file if provided
-  //   // let imagePath: string | undefined;
-  //   // if (file) {
-  //   //   imagePath = path.join("uploads", file.filename); // Path to save image
-  //   // }
-
-  //   // Create the report in the database
-  //   const report = await prismaClient.report.create({
-  //     data: {
-  //       userId: request.userId,
-  //       title: request.title,
-  //       description: request.description,
-  //       imageUri: "kfc.jpg"
-  //     },
-  //   });
-
-  //   return toReportResponse(report); 
-  // }
-
   static async createReport(
     user: User,
     req: CreateReportRequest): Promise<string> {
